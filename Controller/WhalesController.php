@@ -86,25 +86,39 @@ class WhalesController extends AppController {
 
 		$location = $this->not_any_choice($location);
 		$species = $this->not_any_choice($species);
+		// Passing the order array into the find() methods to have the table
+		// ordered by descending dates
+		$order = array('Whale.observed DESC');
 
 		if ($location && $species) {
 			$data = $this->Whale->find('all',
-						array('conditions' => array('Whale.species LIKE' => "%$species%",	// Value in the araray must be within "value" NOT 'value'
-													'Whale.location LIKE' => "%$location%")
-					));
+						array(
+							'conditions' => array(
+												'Whale.species LIKE' => "%$species%",
+												'Whale.location LIKE' => "%$location%",
+											),
+							'order' => $order,
+						)
+					);
 		}
 		elseif ($location) {
 			$data = $this->Whale->find('all',
-						array('conditions' => array('Whale.location LIKE' => "%$location%"))
+						array(
+							'conditions' => array('Whale.location LIKE' => "%$location%"),
+							'order' => $order,
+						)
 					);
 		}
 		elseif ($species) {
 			$data = $this->Whale->find('all',
-						array('conditions' => array('Whale.species LIKE' => "%$species%"))
+						array(
+							'conditions' => array('Whale.species LIKE' => "%$species%"),
+							'order' => $order,
+						)
 					);
 		}
 		else {
-			$data = $this->Whale->find('all');
+			$data = $this->Whale->find('all', array('order' => $order));
 		}
 
 		$this->set('json_data', json_encode($data));

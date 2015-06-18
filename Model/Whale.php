@@ -7,5 +7,8 @@ class Whale extends AppModel {
 			'location' => array(
 				'rule' => 'notEmpty',
 				),
+			'observed' => array(
+				'rule' => 'notEmpty',
+				),
 		);
 }
