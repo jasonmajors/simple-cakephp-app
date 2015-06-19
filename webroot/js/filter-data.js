@@ -24,7 +24,23 @@ $(document).ready(function() {
 	});
 	
 	*/
+	function formatDate(isodate) {
+		var date = new Date(isodate)
+		var month = date.getMonth() + 1;
+		var day = date.getDate();
+		var year = date.getFullYear();
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var ampm = hours >= 12 ? 'PM' : 'AM';
 
+		hours = hours % 12;
+		hours = hours ? hours : 12; // If hours == 0, hours = 12
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+		var strTime = month + "/" + day + "/" + year + " " + hours + ":" + minutes + " " + ampm;
+
+		return strTime;
+	}
+	
 	$('#whale-search').click(function() {
 		// Clear the table
 		$('#whale_table').empty();
@@ -47,7 +63,7 @@ $(document).ready(function() {
 			}
 			// Iterate through the list of JSON objects and build the table rows
 			for (i = 0; i < jsonData.length; i++) {
-				trHTML += '<tr><td>' + jsonData[i].observed + '</td><td>' + jsonData[i].species + '</td><td>' + jsonData[i].location + '</td></tr>';
+				trHTML += '<tr><td>' + formatDate(jsonData[i].observed) + '</td><td>' + jsonData[i].species + '</td><td>' + jsonData[i].location + '</td></tr>';
 			}
 
 			$('#whale_table').html(trHTML);
