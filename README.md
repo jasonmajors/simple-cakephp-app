@@ -6,7 +6,7 @@ Additionally, users can query the database through the API and return the data i
 ../json/location/<location> will query as:
 
 SELECT * FROM whales
-WHERE location LIKE <location>
+WHERE location LIKE [location]
 
 ../json/species/<species> will query as:
 
