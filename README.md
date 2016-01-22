@@ -11,10 +11,10 @@ WHERE location LIKE <location>
 ../json/species/<species> will query as:
 
 SELECT * FROM whales
-WHERE species LIKE <species>
+WHERE species LIKE [species]
 
 Further,
 ../json_query?location=<location>&species=<species> will query as:
 
 SELECT * FROM whales
-WHERE location LIKE <location> AND species LIKE <species>
+WHERE location LIKE [location] AND species LIKE [species]
